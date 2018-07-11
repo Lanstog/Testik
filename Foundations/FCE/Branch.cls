@@ -15,6 +15,8 @@ Class FCE.Branch Extends (%Persistent,%Library.Populate,%XML.Adaptor)
 			set {DurationOpen} = $ztime({Closes}-{Opens})
 		}
 	}];
+	Property CurrencyBalances as array of %Numeric (MINVAL = 0, MAXVAL = 100000000, POPSPEC = ":5:##class(FCE.Currency).Currency()") [SqlFieldName = Balance];
+	Index CBIndex on CurrencyBalances(KEYS);
 	///Branch address
 	Property Address as FCE.RealEstate;
 	ForeignKey RealEstateFK(Address) References FCE.RealEstate()[OnDelete = setnull];
@@ -65,6 +67,11 @@ Storage Default
 <Value name="6">
 <Value>Closes</Value>
 </Value>
+</Data>
+<Data name="CurrencyBalances">
+<Attribute>CurrencyBalances</Attribute>
+<Structure>subnode</Structure>
+<Subscript>"CurrencyBalances"</Subscript>
 </Data>
 <DataLocation>^FCE.BranchD</DataLocation>
 <DefaultData>BranchDefaultData</DefaultData>
